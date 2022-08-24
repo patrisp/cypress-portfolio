@@ -25,6 +25,6 @@
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
 //close cookies information pop-up
-Cypress.Commands.add('closePolicy', () =>{
-    cy.get('.jss231 > .MuiButtonBase-root-78 > .MuiButton-label-201').click();
-});
+
+import 'cypress-mailosaur';
+import '@faker-js/faker';

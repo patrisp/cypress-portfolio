@@ -8,5 +8,9 @@
   },
   "keywords": [],
   "author": "Pat Pawlowska",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "@faker-js/faker": "^7.4.0",
+    "cypress-mailosaur": "^2.11.0"
+  }
 }

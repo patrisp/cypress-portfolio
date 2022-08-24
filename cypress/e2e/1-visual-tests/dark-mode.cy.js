@@ -3,7 +3,6 @@
 describe('Verify that dark mode is working correctly', () => {
     beforeEach(() => {
         cy.visit('/');
-        cy.closePolicy();
     });
 
     it('Light mode is set as the default mode' ,() => {
