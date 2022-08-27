@@ -1,13 +1,13 @@
 /// <reference types="cypress" />
-import { faker } from '@faker-js/faker';
 
+import '../../support/commands.js'
 
 describe('Verify that user can create a new account via email', () => {
     
     const serverId = 'ycodvf9q';
     const domainName = '@ycodvf9q.mailosaur.net';
-    const emailPrefix = faker.word.adjective();
-    const signUpEmail = emailPrefix + domainName;
+    //const emailPrefix = faker.word.adjective();
+    //const signUpEmail = emailPrefix + domainName;
     const password = 'Qwertyui!1'
 
     let confirmSignUp;
@@ -17,23 +17,21 @@ describe('Verify that user can create a new account via email', () => {
     });
 
     it('Email is a required field', () => {
-        cy.get('[name="acceptTerms"][type="checkbox"').check();
-        cy.get('button[type="submit"]').click();
-
-        cy.get('p.Mui-error').should('exist').and('contain.text', 'Email is a required field');
+        cy.createAccount(false, true);
+        cy.get('p.Mui-error')
+            .should('exist')
+            .and('contain.text', 'Email is a required field');
     });
 
     it('User needs to accept ToS in order to create the account', () => {
-        cy.get('input[type="email"]').type(signUpEmail);
-        cy.get('button[type="submit"]').click();
-
-        cy.get('.MuiTypography-root.MuiFormControlLabel-label').children().should('have.css', 'color', 'rgb(244, 67, 54)')
+        cy.createAccount(true, false);
+        cy.get('.MuiTypography-root.MuiFormControlLabel-label')
+            .children()
+            .should('have.css', 'color', 'rgb(244, 67, 54)');
     });
 
-    it('Requirements are met - email is sent and the message is displayed', () => {
-        cy.get('input[type="email"]').type(signUpEmail);
-        cy.get('[name="acceptTerms"][type="checkbox"').check();
-        cy.get('button[type="submit"]').click();
+    it.only('Requirements are met - email is sent and the message is displayed', () => {
+        cy.createAccount(true, true);
 
         cy.mailosaurGetMessage(serverId, {
             sentTo: signUpEmail
