@@ -8,7 +8,7 @@ describe('Verify that user can create a new account via email', () => {
     const domainName = '@ycodvf9q.mailosaur.net';
     const emailPrefix = faker.word.adjective();
     const signUpEmail = emailPrefix + domainName;
-    const password = 'Qwertyui!1'
+    const password = 'Qwertyui!12'
 
     let confirmSignUp;
 
