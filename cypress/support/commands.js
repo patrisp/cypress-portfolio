@@ -31,7 +31,7 @@ import 'cypress-mailosaur';
 
 const domainName = '@ycodvf9q.mailosaur.net';
 const emailPrefix = faker.word.adjective();
-export const signUpEmail = emailPrefix + domainName;
+const signUpEmail = emailPrefix + domainName;
 
 Cypress.Commands.add('submitEmail', () => {
     cy.get('input[type="email"]').type(signUpEmail);
