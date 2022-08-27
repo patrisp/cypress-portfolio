@@ -5,9 +5,6 @@ import * as mailCommands from  '../../support/commands.js'
 describe('Verify that user can create a new account via email', () => {
     
     const serverId = 'ycodvf9q';
-    //const domainName = '@ycodvf9q.mailosaur.net';
-    //const emailPrefix = faker.word.adjective();
-    //const signUpEmail = emailPrefix + domainName;
     const password = 'Qwertyui!1'
 
     let confirmSignUp;
