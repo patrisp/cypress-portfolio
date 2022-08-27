@@ -25,6 +25,27 @@
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
 //close cookies information pop-up
-
+import { faker } from '@faker-js/faker';
 import 'cypress-mailosaur';
-import '@faker-js/faker';
+
+
+const domainName = '@ycodvf9q.mailosaur.net';
+const emailPrefix = faker.word.adjective();
+const signUpEmail = emailPrefix + domainName;
+
+Cypress.Commands.add('submitEmail', () => {
+    cy.get('input[type="email"]').type(signUpEmail);
+})
+
+
+
+Cypress.Commands.add('createAccount', (emailProvided, acceptTOS) => {
+    if (emailProvided) {
+        cy.submitEmail();
+    } 
+    
+    if (acceptTOS) {
+        cy.get('[name="acceptTerms"][type="checkbox"').check();
+    }
+    cy.get('button[type="submit"]').click();
+})
