@@ -28,16 +28,18 @@
 import { faker } from '@faker-js/faker';
 import 'cypress-mailosaur';
 
-
-const domainName = '@ycodvf9q.mailosaur.net';
+const serverId = 'ycodvf9q';
+const domainName = '@' + serverId +'.mailosaur.net';
 const emailPrefix = faker.word.adjective();
 const signUpEmail = emailPrefix + domainName;
+const password = 'Qwertyui!1';
+
+let confirmSignUp;
+
 
 Cypress.Commands.add('submitEmail', () => {
     cy.get('input[type="email"]').type(signUpEmail);
-})
-
-
+});
 
 Cypress.Commands.add('createAccount', (emailProvided, acceptTOS) => {
     if (emailProvided) {
@@ -47,5 +49,37 @@ Cypress.Commands.add('createAccount', (emailProvided, acceptTOS) => {
     if (acceptTOS) {
         cy.get('[name="acceptTerms"][type="checkbox"').check();
     }
+
     cy.get('button[type="submit"]').click();
-})
+
+});
+
+Cypress.Commands.add('checkMessage', (emailSubject) => {
+    cy.mailosaurGetMessage(serverId, {
+        sentTo: signUpEmail}).then(email => {
+            expect(email.subject).to.equal(emailSubject);
+            confirmSignUp = email.html.links[1].href;
+            cy.visit(confirmSignUp);
+            cy.get('input[type="password"]').type(password);
+            cy.get('[type="submit"]').click();
+    });
+});
+
+Cypress.Commands.add('login', (user, pswrd) => {
+    cy.get('input[type="email"]')
+        .type(user);
+    cy.get('input[type="password"]')
+        .type(pswrd);
+    cy.get('button[type="submit"]')
+        .click();
+});
+
+Cypress.Commands.add('uploadAvatar', (path) => {
+    cy.get('#file-upload[type="file"]')
+        .selectFile(path, {force: true});
+});
+
+Cypress.Commands.add('checkCSS', (locator, type, colour) => {
+    cy.get(locator)
+        .should('have.css', type, colour)
+});

@@ -1,16 +1,15 @@
-/// <reference types="cypress" />
+/// <reference types="cypress"/>
 
 import * as mailCommands from  '../../support/commands.js'
 
 describe('Verify that user can create a new account via email', () => {
     
-    const serverId = 'ycodvf9q';
-    const password = 'Qwertyui!1'
-
-    let confirmSignUp;
+    
 
     beforeEach(() => {
         cy.visit('/devs/signup');
+        //alias - content input
+        
     });
 
     it('Email is a required field', () => {
@@ -29,13 +28,15 @@ describe('Verify that user can create a new account via email', () => {
 
     it('Requirements are met - email is sent and the message is displayed', () => {
         cy.createAccount(true, true);
+        cy.checkMessage('Confirmation account link');
+        
 
-        cy.mailosaurGetMessage(serverId, {
+        /*cy.mailosaurGetMessage(serverId, {
             sentTo: mailCommands.signUpEmail
         }).then(email => {
             expect(email.subject).to.equal('Confirmation account link');
             confirmSignUp = email.html.links[1].href;
-        });
+        });*/
     });
 
     it('Account is confirmed by the new user', () => {
