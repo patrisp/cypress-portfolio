@@ -25,53 +25,21 @@
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
 //close cookies information pop-up
-import { faker } from '@faker-js/faker';
-import 'cypress-mailosaur';
-
-const serverId = 'ycodvf9q';
-const domainName = '@' + serverId +'.mailosaur.net';
-const emailPrefix = faker.word.adjective();
-const signUpEmail = emailPrefix + domainName;
-const password = 'Qwertyui!1';
-
-let confirmSignUp;
-
 
 Cypress.Commands.add('submitEmail', () => {
     cy.get('input[type="email"]').type(signUpEmail);
 });
 
-Cypress.Commands.add('createAccount', (emailProvided, acceptTOS) => {
-    if (emailProvided) {
-        cy.submitEmail();
-    } 
-    
-    if (acceptTOS) {
-        cy.get('[name="acceptTerms"][type="checkbox"').check();
-    }
-
-    cy.get('button[type="submit"]').click();
-
-});
-
-Cypress.Commands.add('checkMessage', (emailSubject) => {
-    cy.mailosaurGetMessage(serverId, {
-        sentTo: signUpEmail}).then(email => {
-            expect(email.subject).to.equal(emailSubject);
-            confirmSignUp = email.html.links[1].href;
-            cy.visit(confirmSignUp);
-            cy.get('input[type="password"]').type(password);
-            cy.get('[type="submit"]').click();
-    });
-});
-
 Cypress.Commands.add('login', (user, pswrd) => {
+    cy.intercept('/api/developers/auth')
+        .as('auth');
     cy.get('input[type="email"]')
         .type(user);
     cy.get('input[type="password"]')
         .type(pswrd);
     cy.get('button[type="submit"]')
         .click();
+    cy.wait('@auth');
 });
 
 Cypress.Commands.add('uploadAvatar', (path) => {
@@ -82,4 +50,12 @@ Cypress.Commands.add('uploadAvatar', (path) => {
 Cypress.Commands.add('checkCSS', (locator, type, colour) => {
     cy.get(locator)
         .should('have.css', type, colour)
+});
+
+Cypress.Commands.add('logout', ()=>{
+    cy.visit('/devs/panel/profile');
+    cy.get('.MuiListItem-root')
+        .contains('Log out')
+        .click({timeout: 3000});
+    cy.url().should('eq', 'https://justjoin.it/devs');
 });

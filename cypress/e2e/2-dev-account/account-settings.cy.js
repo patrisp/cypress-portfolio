@@ -1,5 +1,3 @@
-/// <reference types="cypress"/>
-
 describe('Verify that user can edit profile settings', () => {
 
     beforeEach(() => {

@@ -1,5 +1,3 @@
-/// <reference types = "cypress"/>
-
 describe('Verify that UI elements are correctly displayed in responsive view', () => {
 
     const compareSnapshotCommand = require('cypress-image-diff-js/dist/command');

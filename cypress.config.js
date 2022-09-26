@@ -12,7 +12,7 @@ module.exports = defineConfig({
     viewportWidth: 1280
   },
   env: {
-    MAILOSAUR_API_KEY: '1HvsFG7YPic3rhdX'
+    MAILOSAUR_API_KEY: '4NJDmOXINF4gjxDa'
   }
 });
 

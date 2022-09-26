@@ -1,5 +1,3 @@
-/// <reference types="cypress"/>
-
 describe('Verify that dark mode is working correctly', () => {
     function enableDarkMode(){
         cy.get('[type="checkbox"]').eq(0).check();
@@ -35,7 +33,6 @@ describe('Verify that dark mode is working correctly', () => {
 
         cy.visit('/brands');
         darkCSS();
-        
 
         cy.visit('https://geek.justjoin.it/');
         cy.checkCSS('#masthead', 'color', 'rgb(68, 68, 68)');
