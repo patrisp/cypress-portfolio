@@ -44,7 +44,7 @@ Cypress.Commands.add('login', (user, pswrd) => {
 
 Cypress.Commands.add('uploadAvatar', (path) => {
     cy.get('#file-upload[type="file"]')
-        .selectFile(path, {force: true});
+        .selectFile(path, {force: true}, {timeout: 5000});
 });
 
 Cypress.Commands.add('checkCSS', (locator, type, colour) => {
@@ -58,4 +58,16 @@ Cypress.Commands.add('logout', ()=>{
         .contains('Log out')
         .click({timeout: 3000});
     cy.url().should('eq', 'https://justjoin.it/devs');
+});
+
+
+Cypress.Commands.add('uploadFile', (selector, file, msg)=>{
+    cy.get(selector)
+        .selectFile(file, {force: true}, {timeout: 5000});
+
+    cy.get('.MuiSnackbarContent-message')
+        .should('contain', msg);
+
+    cy.intercept('GET', 'https://justjoin.it/api/developers/me', {fixture: 'api_intercept.json'});
+    cy.visit('/devs/panel/profile');
 });

@@ -1,15 +1,15 @@
 {
-    "id": "me",
-    "email": "patriss93@gmail.com",
-    "first_name": null,
-    "last_name": null,
-    "avatar": null,
-    "cv": null,
-    "city": null,
-    "description": null,
-    "experience_range": null,
-    "github_url": null,
-    "linkedin_url": null,
-    "status": "active",
-    "complete_profile": false
+    "id":"me",
+    "email":"creepy@tesbmwik.mailosaur.net",
+    "first_name":null,
+    "last_name":null,
+    "avatar":null,
+    "cv":null,
+    "city":null,
+    "description":null,
+    "experience_range":null,
+    "github_url":null,
+    "linkedin_url":null,
+    "status":"active",
+    "complete_profile":false
 }
