@@ -11,6 +11,8 @@
   "license": "ISC",
   "devDependencies": {
     "@faker-js/faker": "^7.4.0",
+    "cypress": "^10.7.0",
+    "cypress-image-diff-js": "^1.21.1",
     "cypress-mailosaur": "^2.11.0"
   }
 }
