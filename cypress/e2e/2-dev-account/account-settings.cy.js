@@ -20,10 +20,10 @@ describe('Verify that user can edit profile settings', () => {
 
     it('Profile picture is updated', () => {
         //failed avatar uploads: unsupported format and file is too large:
-        cy.uploadFile('#file-upload[type="file"]', 'cypress/fixtures/img/gif-fail.gif', 'Unsupported file type');
-        cy.uploadFile('#file-upload[type="file"]', 'cypress/fixtures/img/over1MB.png', 'File must be smaller than 1MB');
+        cy.verifyMessageAfterFileUpload('#file-upload[type="file"]', 'cypress/fixtures/img/gif-fail.gif', 'Unsupported file type');
+        cy.verifyMessageAfterFileUpload('#file-upload[type="file"]', 'cypress/fixtures/img/over1MB.png', 'File must be smaller than 1MB');
         //pass:
-        cy.uploadFile('#file-upload[type="file"]', 'cypress/fixtures/img/avatar-success.jpg', 'Successfuly updated Avatar');
+        cy.verifyMessageAfterFileUpload('#file-upload[type="file"]', 'cypress/fixtures/img/avatar-success.jpg', 'Successfuly updated Avatar');
     });
 
     it('User details are updated', () => {
@@ -66,9 +66,9 @@ describe('Verify that user can edit profile settings', () => {
 
     it.only('CV can be uploaded', () => {
         //cv must be a pdf file
-        cy.uploadFile('input[accept="application/pdf"]', 'cypress/fixtures/img/over1MB.png', 'CV must be a pdf file');
+        cy.verifyMessageAfterFileUpload('input[accept="application/pdf"]', 'cypress/fixtures/img/over1MB.png', 'CV must be a pdf file');
         //correct cv file
-        cy.uploadFile('input[accept="application/pdf"]', 'cypress/fixtures/CV.pdf', 'Successfuly updated CV');
+        cy.verifyMessageAfterFileUpload('input[accept="application/pdf"]', 'cypress/fixtures/CV.pdf', 'Successfuly updated CV');
     });
 
     it('Years of experience can be chosen', () => {

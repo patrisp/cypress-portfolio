@@ -3,12 +3,12 @@ describe('Verify that dark mode is working correctly', () => {
         cy.get('[type="checkbox"]').eq(0).check();
     };
 
-    function lightCSS(){
+    function checkIfLightCSS(){
         cy.checkCSS('#logo-justjoin-it', 'fill', 'rgb(55, 71, 79)');
         cy.checkCSS('header > div', 'background-color', 'rgb(255, 255, 255)');
     };
 
-    function darkCSS(){
+    function checkIfDarkCSS(){
         cy.checkCSS('#logo-justjoin-it', 'fill', 'rgba(255, 255, 255, 0.8)');
         cy.checkCSS('header > div', 'background-color', 'rgb(44, 44, 44)');
     };
@@ -18,13 +18,13 @@ describe('Verify that dark mode is working correctly', () => {
     });
 
     it('Light mode is set as the default mode' ,() => {
-        lightCSS();
+        checkIfLightCSS();
         cy.screenshot({capture: 'fullPage'});
     });
 
     it('Background and font colours are correct for the dark mode' ,() => {
         enableDarkMode();
-        darkCSS();
+        checkIfDarkCSS();
         cy.screenshot({capture: 'fullPage'});
     });
 
@@ -32,16 +32,16 @@ describe('Verify that dark mode is working correctly', () => {
         enableDarkMode();
 
         cy.visit('/brands');
-        darkCSS();
+        checkIfDarkCSS();
 
         cy.visit('https://geek.justjoin.it/');
         cy.checkCSS('#masthead', 'color', 'rgb(68, 68, 68)');
 
         cy.visit('/matchmaking');
-        darkCSS();
+        checkIfDarkCSS();
 
         cy.visit('/add-offer'); //test fails - bug found
-        darkCSS();
+        checkIfDarkCSS();
     });
 
     it('Pop-ups are displayed in dark mode', () => {

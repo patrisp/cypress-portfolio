@@ -61,7 +61,7 @@ Cypress.Commands.add('logout', ()=>{
 });
 
 
-Cypress.Commands.add('uploadFile', (selector, file, msg)=>{
+Cypress.Commands.add('verifyMessageAfterFileUpload', (selector, file, msg)=>{
     cy.get(selector)
         .selectFile(file, {force: true}, {timeout: 5000});
 

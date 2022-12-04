@@ -10,7 +10,7 @@ describe('Verify that user can create a new account via email', () => {
 
     let confirmSignUp;
 
-    function loggingIn(email, tos){
+    function loginByEmail(email, tos){
         if(email){
             cy.get('input[type="email"]').type(signUpEmail);
         }
@@ -25,7 +25,7 @@ describe('Verify that user can create a new account via email', () => {
     });
 
     it('Email is a required field', () => {
-        loggingIn(false, true);
+        loginByEmail(false, true);
 
         cy.get('p.Mui-error')
             .should('exist')
@@ -33,7 +33,7 @@ describe('Verify that user can create a new account via email', () => {
     });
 
     it('User needs to accept ToS in order to create the account', () => {
-        loggingIn(true, false);
+        loginByEmail(true, false);
 
         cy.get('.MuiTypography-root.MuiFormControlLabel-label')
             .children()
@@ -41,7 +41,7 @@ describe('Verify that user can create a new account via email', () => {
     });
 
     it('Requirements are met - email is sent and the message is displayed', () => {
-        loggingIn(true, true);
+        loginByEmail(true, true);
         
         cy.mailosaurGetMessage(serverId, {
             sentTo: signUpEmail
